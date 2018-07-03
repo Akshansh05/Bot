@@ -1,4 +1,3 @@
-
 'use strict'
 
 const express = require('express')
@@ -29,7 +28,7 @@ app.get('/webhook/', function (req, res) {
 })
 
 // to post data
-/*app.post('/webhook/', function (req, res) {
+app.post('/webhook/', function (req, res) {
 	let messaging_events = req.body.entry[0].messaging
 	for (let i = 0; i < messaging_events.length; i++) {
 		let event = req.body.entry[0].messaging[i]
@@ -55,7 +54,7 @@ app.get('/webhook/', function (req, res) {
 
 // recommended to inject access tokens as environmental variables, e.g.
 // const token = process.env.FB_PAGE_ACCESS_TOKEN
-const token ="EAACRdsLexTUBAPXkNFmYQUz2aVqFDFzDzWbCMAySptyBvdbpWl1PwjsXxOStf2j39XMglZAzoS036Jwqkll6DTLpRq1NK9MTKtKjGD9d6QSYTZBj4vhaZCKuDY4kxiuNA4CioKdOQZCuJ8TTYkglzHTaX1GGJ5FJf7ccI0aHjh30jiP8EcPC";
+const token = "EAACRdsLexTUBAOK0NQZCJEHdjSTqzTE76gZCMdA3pG5oxd5eXUmUZAv7D6t4hSZCWtZAmtto994M6JJkiexpPpLayugCYwKbxoVU0oIHjgx9JB0d97n4ZCAGmqPb3mTQz7z41URYxo3FHVtHlPqZCZBl7Dk5ovL0TgZBsL9I7951nO6zoMr4NHOsS"
 
 function sendTextMessage(sender, text) {
 	let messageData = { text:text }
@@ -129,34 +128,4 @@ function sendGenericMessage(sender) {
 // spin spin sugar
 app.listen(app.get('port'), function() {
 	console.log('running on port', app.get('port'))
-})*/
-
-app.post('/webhook', (req, res) => {  
-
-  // Parse the request body from the POST
-  let body = req.body;
-
-  // Check the webhook event is from a Page subscription
-  if (body.object === 'page') {
-
-    // Iterate over each entry - there may be multiple if batched
-    body.entry.forEach(function(entry) {
-// Gets the body of the webhook event
-  let webhook_event = entry.messaging[0];
-  console.log(webhook_event);
-
-  // Get the sender PSID
-  let sender_psid = webhook_event.sender.id;
-  console.log('Sender PSID: ' + sender_psid);
-      
-    });
-
-    // Return a '200 OK' response to all events
-    res.status(200).send('EVENT_RECEIVED');
-
-  } else {
-    // Return a '404 Not Found' if event is not from a page subscription
-    res.sendStatus(404);
-  }
-
-});
+})
